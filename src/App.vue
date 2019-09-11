@@ -1,21 +1,16 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h1>Lista de Tarefas</h1>
+    
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
+        <input type="text" placeholder="enter item" v-on:keyup.enter="addTodo()" v-model="text">
+        <li v-for="item in list" @click="checkItem(item)" v-bind:class="[item.checked ? 'completed' : '']"> 
+          <input class="checked-item" type="checkbox" v-bind:checked=item.checked >
+          <span> {{ item.text }} </span>
+          <button v-on:click="removeTodo(item)">X</button> 
+        </li>
     </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    
   </div>
 </template>
 
@@ -24,9 +19,35 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      completed_item: '',
+      checked: false,
+      show: true,
+      text:'',
+      list: [
+        { "text": "Adicionar mais itens a sua lista", checked: true},
+      ]
+    }
+  },
+
+  methods: {
+    addTodo() {
+      if(this.text.trim() !== '') {
+        this.list.push({ text: this.text, checked: false });
+        this.text = '';
+      }
+    },
+
+    removeTodo(item) {
+      this.list.splice(this.list.indexOf(item), 1);
+    },
+
+    checkItem(item) {
+      if(this.list[this.list.indexOf(item)]) {
+        this.list[this.list.indexOf(item)].checked ? this.list[this.list.indexOf(item)].checked = false : this.list[this.list.indexOf(item)].checked = true;
+      }
     }
   }
+
 }
 </script>
 
@@ -35,7 +56,10 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: ;
   color: #2c3e50;
   margin-top: 60px;
 }
@@ -47,14 +71,42 @@ h1, h2 {
 ul {
   list-style-type: none;
   padding: 0;
+  width: 100%;
 }
 
 li {
   display: inline-block;
-  margin: 0 10px;
+  background: #353535;
+  color: #fff;
+  border-bottom: 01px solid rgb(255, 255, 255);
+  padding: 10px;
+  width: 100%;
+}
+
+li.completed {
+  background: #c7c7c7;
+  color: rgb(150, 150, 150);
+  border-bottom: 01px solid #338f66;
+  text-decoration: line-through;
 }
 
 a {
   color: #42b983;
 }
+input {
+  padding: 10px;
+  width: 100%; 
+  margin-bottom: 05px;
+}
+
+.checked-item {
+  float: left;
+  width: 10px;
+  margin: 7px 10px 0 0;
+}
+
+button {
+  float: right;
+}
+
 </style>
