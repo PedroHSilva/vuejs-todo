@@ -4,9 +4,9 @@
     
     <ul>
         <input type="text" placeholder="enter item" v-on:keyup.enter="addTodo()" v-model="text">
-        <li v-for="item in list" @click="checkItem(item)" v-bind:class="[item.checked ? 'completed' : '']"> 
+        <li v-for="item in list" v-bind:class="[item.checked ? 'completed' : '']"> 
           <input class="checked-item" type="checkbox" v-bind:checked=item.checked >
-          <span> {{ item.text }} </span>
+          <span @click="checkItem(item)"> {{ item.text }} </span>
           <button v-on:click="removeTodo(item)">X</button> 
         </li>
     </ul>
@@ -75,12 +75,12 @@ ul {
 }
 
 li {
-  display: inline-block;
+  display: block;
   background: #353535;
   color: #fff;
   border-bottom: 01px solid rgb(255, 255, 255);
-  padding: 10px;
   width: 100%;
+  padding: 10px;
 }
 
 li.completed {
@@ -94,7 +94,7 @@ a {
   color: #42b983;
 }
 input {
-  padding: 10px;
+  padding: 8px;
   width: 100%; 
   margin-bottom: 05px;
 }
@@ -107,6 +107,7 @@ input {
 
 button {
   float: right;
+  font-size: 100%;
 }
 
 </style>
