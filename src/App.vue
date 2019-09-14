@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <h1>Lista de Tarefas</h1>
-    
-    <ul>
-        <input type="text" placeholder="enter item" v-on:keyup.enter="addTodo()" v-model="text">
-        <li v-for="item in list" v-bind:class="[item.checked ? 'completed' : '']"> 
-          <input class="checked-item" type="checkbox" v-bind:checked=item.checked >
-          <span @click="checkItem(item)"> {{ item.text }} </span>
-          <button v-on:click="removeTodo(item)">X</button> 
+    <ul class="w3-ul w3-card-2">
+        <input type="text" class="w3-input" placeholder="enter item" v-on:keyup.enter="addTodo()" v-model="text">
+        <li v-for="item in list" v-bind:class="[item.checked ? 'w3-grey' : ''] + ' w3-bar'"> 
+          <i class="w3-bar-item w3-xlarge fa fa-check-circle"></i>
+          <input class="w3-hide" type="checkbox" v-bind:checked=item.checked >
+          <span class="w3-bar-item" @click="checkItem(item)"> {{ item.text }} </span>
+          <i class="w3-bar-item w3-xlarge w3-right fa fa-times-circle" v-on:click="removeTodo(item)"></i> 
         </li>
     </ul>
     
@@ -19,13 +19,10 @@ export default {
   name: 'app',
   data () {
     return {
-      completed_item: '',
       checked: false,
       show: true,
       text:'',
-      list: [
-        { "text": "Adicionar mais itens a sua lista", checked: true},
-      ]
+      list: []
     }
   },
 
@@ -53,61 +50,12 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-  text-align: ;
-  color: #2c3e50;
   margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-}
-
-li {
-  display: block;
-  background: #353535;
-  color: #fff;
-  border-bottom: 01px solid rgb(255, 255, 255);
-  width: 100%;
-  padding: 10px;
-}
-
-li.completed {
-  background: #c7c7c7;
-  color: rgb(150, 150, 150);
-  border-bottom: 01px solid #338f66;
-  text-decoration: line-through;
-}
-
-a {
-  color: #42b983;
-}
-input {
-  padding: 8px;
-  width: 100%; 
-  margin-bottom: 05px;
-}
-
-.checked-item {
-  float: left;
-  width: 10px;
-  margin: 7px 10px 0 0;
-}
-
-button {
-  float: right;
-  font-size: 100%;
-}
+} 
 
 </style>
